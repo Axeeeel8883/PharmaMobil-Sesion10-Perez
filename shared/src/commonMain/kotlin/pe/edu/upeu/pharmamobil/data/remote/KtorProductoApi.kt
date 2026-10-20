@@ -15,7 +15,12 @@ import pe.edu.upeu.pharmamobil.domain.model.Producto
 data class ProductoDto(val id:Long,val nombre:String,val precio:Double,val stock:Int)
 @Serializable
 data class ProductoPaginaDto(
- val contenido:List<ProductoDto> = emptyList()
+ val contenido:List<ProductoDto> = emptyList(),
+ val pagina:Int=0,
+ val tamanio:Int=20,
+ val totalElementos:Long=0,
+ val totalPaginas:Int=0,
+ val ultima:Boolean=true
 )
 @Serializable
 data class ProductoNuevoDto(
@@ -46,7 +51,7 @@ class KtorProductoApi(
         url { parameters.append("pagina",pagina.toString());parameters.append("tamanio","100") }
       }.body()
       resultados.addAll(page.contenido.map { Producto(it.id,it.nombre,it.precio,it.stock) })
-      if(page.contenido.size<100) break
+      if(page.ultima) break
       pagina++
    }
    return resultados
