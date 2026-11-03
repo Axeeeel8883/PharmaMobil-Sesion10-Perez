@@ -1,0 +1,4 @@
+-- Ejemplo de migración SQLDelight, adaptar al nombre de la tabla y versión real.
+-- En la guía la tabla es labor. Antes de aplicar, comprobar esquema y 1.sqm existente.
+ALTER TABLE labor ADD COLUMN intentos INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE labor ADD COLUMN ultimoError TEXT;
