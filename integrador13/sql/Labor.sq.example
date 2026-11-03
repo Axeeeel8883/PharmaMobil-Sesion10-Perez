@@ -1,0 +1,13 @@
+-- EJEMPLOS de sentencias SQLDelight; no se deben ejecutar como SQL crudo
+-- sin integrarlas al esquema real que contiene la tabla labor.
+pendientesPorEnviar:
+SELECT * FROM labor WHERE pendiente = 1 AND intentos < :maxIntentos ORDER BY id;
+
+contarPendientes:
+SELECT COUNT(*) FROM labor WHERE pendiente = 1 AND intentos < :maxIntentos;
+
+contarFallidas:
+SELECT COUNT(*) FROM labor WHERE pendiente = 1 AND intentos >= :maxIntentos;
+
+sumarIntento:
+UPDATE labor SET intentos = intentos + 1, ultimoError = ? WHERE id = ?;
